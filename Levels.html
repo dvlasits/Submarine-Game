@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<script type="text/javascript" src="libs/ClassLoader.js"></script>
+</head>
+<body>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@4"></script>
+
+<style type="text/css">
+
+@font-face {
+  font-family: FGDR;
+  src: url("FranklinGothicDemiRegular.ttf");
+}
+
+body {
+    margin: 0;
+    background-color: #ecf0f1;
+    font-family: FGDR;
+}
+
+h1 {
+    text-align: center;
+    font-family: FGDR;
+    font-size: 70px;
+    margin: 5px 0 10px 0 ;
+}
+
+#backButton {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    height: 150px;
+    border-radius: 5px;
+    border: 0px;
+    background-color: #9b59b6;
+
+    font-family: FGDR;
+    font-size: 35px;
+    color: #f5f6fa;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8e44ad;
+}
+
+button:active {
+    background-color: #64307a;
+}
+
+button:focus {outline:0;}
+
+table {
+    width: 100%
+}
+
+html {
+    height: 100%;
+}
+
+.complete {
+	background-color: #2ecc71 !important;
+}
+
+
+.easy  {
+    background-color: #1abc9c;
+}
+
+.easy:hover  {
+    background-color: #16a085;
+}
+
+.easy:active {
+    background-color: #12856d;
+}
+
+
+.medium  {
+    background-color: #f39c12;
+}
+
+.medium:hover  {
+    background-color: #ef9a0c;
+}
+
+.medium:active {
+    background-color: #ce850b;
+}
+
+.hard  {
+    background-color: #e74c3c;
+}
+
+.hard:hover  {
+    background-color: #d62e1b;
+}
+
+.hard:active {
+    background-color: #c0392b;
+}
+
+.ultimate  {
+    background-color: #34495e;
+}
+
+.ultimate:hover  {
+    background-color: #2c3e50;
+}
+
+.ultimate:active {
+    background-color: #212f3d;
+}
+
+.levelDifficultyTitle {
+    font-family: FGDR;
+    font-size: 35px;
+    padding-left: 5px;
+}
+
+</style>
+
+<img src="img/buttons/BackButton.png" id="backButton" onclick="location.href='StartScreen.html'">
+<h1>Levels</h1>
+
+<table id="buttonsTable">
+</table>
+
+<script>
+
+	difficulties = [
+	{name: "Easy", "class": "easy", "description": "Use the arrow keys to match the correct bins to the arrows on screen."},
+	{name: "Medium", "class": "medium", "description": "Use the arrow keys to match the correct bins to the arrows on screen, regardless of colour."},
+	{name: "Hard", "class": "hard", "description": "Select the correct bin based on the colour of rubbish ignoring direction."},
+	{name: "Ultimate", "class": "ultimate", "description": "Match arrows based on colour ignoring direction of rubbish, after 5 seconds bins will disappear."}
+	]
+
+	var currentDifficulty;
+
+    current_row = document.createElement("tr");
+    table = document.getElementById("buttonsTable");
+    var since_last_row = 1;
+
+    addDifficultyTextRow();
+    for (i=1; i<=16; i++) {
+
+        current_cell = document.createElement("td");
+        current_button = document.createElement("button");
+        current_button.innerHTML = "Level " + i;
+
+        current_button.setAttribute("level", i);
+
+
+        level_complete = localStorage.getItem("level" + i + "Complete");
+
+        current_button.classList.add(currentDifficulty["class"]);
+
+        if (level_complete != null && level_complete == "1") {
+            current_button.classList.add("complete");
+        }
+
+        current_button.addEventListener("click", function (event) {
+            var url = "Game.html?level=" + event.target.getAttribute("level");
+            location.href = url;
+        });
+
+        current_cell.appendChild(current_button);
+        current_row.appendChild(current_cell);
+
+        if (i%5 == 0) {
+        	since_last_row = 0;
+            table.appendChild(current_row);
+            current_row = document.createElement("tr");
+
+            addDifficultyTextRow();
+        }
+
+        since_last_row += 1;
+    }
+
+    table.appendChild(current_row);
+    current_row = document.createElement("tr");
+
+
+	function addDifficultyTextRow() {
+		if (difficulties.length == 0) {
+			return;
+		}
+
+		currentDifficulty = difficulties.shift();
+
+		diff_row = document.createElement("tr");
+		diff_row.innerHTML = currentDifficulty["name"] + '  <i class="fa fa-question-circle" style="font-size:30px"></i>';
+		diff_row.classList.add("levelDifficultyTitle");
+		table.appendChild(diff_row);
+
+		tippy(diff_row, {
+          content: currentDifficulty["description"],
+          placement: 'right'
+        });
+	}
+
+</script>
+
+</body>
+</html>

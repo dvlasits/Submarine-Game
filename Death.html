@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>You failed</title>
+</head>
+<body>
+
+<style>
+
+    @font-face {
+        font-family: FGDR;
+        src: url("FranklinGothicDemiRegular.ttf");
+    }
+
+    body {
+        background-color: #e74c3c;
+    }
+
+    #title {
+        font-size: 80px;
+        margin: 0;
+    }
+
+    #score {
+        margin: 0;
+    }
+
+    #textWrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-family: FGDR;
+    }
+
+    button {
+        border: 0;
+        margin: 10px 0 0 0;
+        font-family: FGDR;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #tryAgainButton {
+        width: 100%;
+        height: 60px;
+        background-color: #f1c40f;
+        font-size: 30px;
+    }
+
+    #tryAgainButton:hover {
+        background-color: #f5d967;
+    }
+
+    #tryAgainButton:active {
+        background-color: #f0c61c;
+    }
+
+    #backToLevels {
+        width: 80%;
+        height: 60px;
+        background-color: #f39c12;
+        font-size: 30px;
+    }
+
+    #backToLevels:hover {
+        background-color: #f7b953;
+    }
+
+    #backToLevels:active {
+        background-color: #f49f11;
+    }
+
+
+
+    #learnMore {
+        width: 60%;
+        height: 60px;
+        background-color: #c8d6e5;
+        font-size: 30px;
+    }
+
+    #learnMore:hover {
+        background-color: #b1c5da;
+    }
+
+    #learnMore:active {
+        background-color: #a8bed5;
+    }
+
+
+
+</style>
+
+
+<div id="textWrapper">
+    <h1 id="title">You failed!</h1>
+    <h2 id="funnyLine">You've really done it this time</h2>
+    <button id="tryAgainButton">
+        Try again
+    </button>
+    <br />
+    <button id="backToLevels">
+        Go back to levels
+    </button>
+
+    <button id="learnMore">
+        Learn more
+    </button>
+
+</div>
+
+
+<script>
+    var urlParams = new URL(location.href);
+    var level = urlParams.searchParams.get("level");
+
+    if (level == undefined) {
+        alert("ERROR: Level not set")
+    }
+
+    document.getElementById("tryAgainButton").addEventListener("click", function() {
+        location.href = "Game.html?level=" + level;
+    });
+
+    document.getElementById("backToLevels").addEventListener("click", function() {
+        location.href = "Levels.html";
+    });
+
+    document.getElementById("learnMore").addEventListener("click", function() {
+        location.href = "https://www.rd.com/health/wellness/kids-save-planet-in-minutes/";
+    });
+
+
+
+</script>
+
+
+</body>
+</html>

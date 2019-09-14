@@ -1,0 +1,4 @@
+Use the arrow keys to match the correct bins to the arrows on screen.
+Use the arrow keys to match the correct bins to the arrows on screen, regardless of colour.
+Select the correct bin based on the colour of rubbish ignoring direction.
+Match arrows based on colour ignoring direction of rubbish, after 5 seconds bins will disappear.
